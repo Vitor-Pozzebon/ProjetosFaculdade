@@ -1,0 +1,117 @@
+<resources>
+    <string name="app_name">ZCBP Controller</string>
+
+    <string-array name="niveis">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
+        <item>36</item>
+        <item>37</item>
+        <item>38</item>
+        <item>39</item>
+        <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>43</item>
+    </string-array>
+
+    <string-array name="LaranjaSilas">
+        <item>+1 Ação de Alcance Grátis</item>
+        <item>À Queima-Roupa</item>
+    </string-array>
+
+    <string-array name="VermelhoSilas">
+        <item>+1 Dado: Alcance</item>
+        <item>+1 Ação Corpo a Corpo Grátis</item>
+        <item>Chuva de Ferro</item>
+    </string-array>
+
+    <string-array name="LaranjaAnn">
+        <item>+1 Ação de Magia Grátis</item>
+        <item>+1 Ação Corpo a Corpo Grátis</item>
+    </string-array>
+
+    <string-array name="VermelhoAnn">
+        <item>+1 Ação de Combate Grátis</item>
+        <item>+1 no Dado: Combate</item>
+        <item>Rolar 6: +1 Morte no Combate</item>
+    </string-array>
+
+    <string-array name="LaranjaBaldric">
+        <item>+1 Ação de Magia Grátis</item>
+        <item>Livro de Feitiços</item>
+    </string-array>
+
+    <string-array name="VermelhoBaldric">
+        <item>+1 Dado: Mágica</item>
+        <item>+1 Ação de Combate Grátis</item>
+        <item>+1 no Dado: Corpo a Corpo</item>
+    </string-array>
+
+    <string-array name="LaranjaClovis">
+        <item>+1 Ação Corpo a Corpo Grátis</item>
+        <item>Mestre Espadachim</item>
+    </string-array>
+
+    <string-array name="VermelhoClovis">
+        <item>+1 Ação de Combate Grátis</item>
+        <item>+1 no Dado: Combate</item>
+        <item>Bate e Corre</item>
+    </string-array>
+
+    <string-array name="LaranjaNelly">
+        <item>Sede de Sangue: Corpo a Corpo</item>
+        <item>Escorregadia</item>
+    </string-array>
+
+    <string-array name="VermelhoNelly">
+        <item>+1 Ação de Combate Grátis</item>
+        <item>+1 no Dado: Combate</item>
+        <item>Bate e Corre</item>
+    </string-array>
+
+    <string-array name="LaranjaSamson">
+        <item>+1 Dado: Combate</item>
+        <item>+1 no Dado: Corpo a Corpo</item>
+    </string-array>
+
+    <string-array name="VermelhoSamson">
+        <item>+1 de Dano: Corpo a Corpo</item>
+        <item>+1 Ação de Combate Grátis</item>
+        <item>Bárbaro</item>
+    </string-array>
+
+</resources>
