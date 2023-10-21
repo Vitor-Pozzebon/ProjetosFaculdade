@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de classes</title>
+
+    <script>
+        let listaOG = [];
+
+        class Pacman {
+            constructor(x, y, r, mo, cor) {
+                this.x = x;
+                this.y = y;
+                this.r = r;
+                this.mo = mo;
+                this.selecionado = false;
+                this.cor = cor;
+            }
+
+            draw(ctx) {
+                if (this.selecionado) {
+                    ctx.lineWidth = 3;
+                } else {
+                    ctx.lineWidth = 1;
+                }
+                ctx.beginPath();
+                const startAngle = this.mo ? 0.2 : 0.1;
+                const endAngle = this.mo ? 1.9 : 1.8;
+                ctx.arc(this.x, this.y, this.r, startAngle * Math.PI, endAngle * Math.PI);
+                ctx.lineTo(this.x, this.y);
+                ctx.fillStyle = this.cor;
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+            }
+
+            checkClick(mx, my) {
+                let ctx = canvas.getContext("2d");
+                ctx.beginPath();
+                const startAngle = this.mo ? 0.2 : 0.1;
+                const endAngle = this.mo ? 1.9 : 1.8;
+                ctx.arc(this.x, this.y, this.r, startAngle * Math.PI, endAngle * Math.PI);
+                ctx.lineTo(this.x, this.y);
+                ctx.fillStyle = this.cor;
+                ctx.fill();
+                let v = ctx.isPointInPath(mx, my);
+                ctx.closePath();
+                
+                return v;
+            }
+
+            mouseMove(mx, my) {
+                this.x = mx - this.dx;
+                this.y = my - this.dy;
+            }
+
+            calculeDxDy(mx, my) {
+                this.dx = mx - this.x;
+                this.dy = my - this.y;
+            }
+        }
+
+        function draw() {
+            let ctx = canvas.getContext("2d");
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            for (let og of listaOG) {
+                og.draw(ctx);
+            }
+        }
+
+        //Cálculo do selecionado
+        function funcMouseDown(ev) {
+            movendo = false;
+            let found = false;
+            for (let og of listaOG) {
+                if (!found && og.checkClick(ev.offsetX, ev.offsetY)) {
+                    og.calculeDxDy(ev.offsetX, ev.offsetY);
+                    og.selecionado = true;
+                    movendo = true;
+                    found = true;
+                } else {
+                    og.selecionado = false;
+                }
+            }
+            draw();
+        }
+
+        let movendo = false;  //Variável de controle.
+        function funcMouseMove(ev) {
+            if (!movendo) {
+                return;
+            }
+            
+            let found = false;
+            for (let og of listaOG) {
+                if (og.selecionado) {
+                    og.mouseMove(ev.offsetX, ev.offsetY);
+                    found = true;
+                }
+            }
+            if (found) {
+                draw();
+            }
+        }
+        
+    function funcMouseUp(ev) {
+        movendo = false;
+    }
+
+
+    function init() {
+        canvas.addEventListener('mousedown', funcMouseDown, false);
+        canvas.addEventListener('mousemove', funcMouseMove, false);
+        canvas.addEventListener('mouseup', funcMouseUp, false);
+
+        let pacman = new Pacman(250,250,50,true,'yellow');
+        listaOG.push(pacman);
+
+        draw();
+    }
+
+    let posNew = {x: 110, y: 110};
+
+    function onChangeColor() {
+        for (let og of listaOG) {
+            if (og.selecionado) {
+                og.cor = colorSelctor.value;
+                draw();
+            }
+        }
+    }
+
+    function addPacman(){
+        let pacman = new Pacman(250,250,50,true,colorSelctor.value);
+        posNew.x += 10;
+        posNew.y += 10;
+        listaOG.push(pacman);
+        draw();
+    }
+
+    let url = "http://localhost:8090/graficoPacMan";
+    function enviarFetch() {
+        let obj = {
+            personagens: []
+        };
+        for (let og of listaOG) {
+            if(og instanceof Pacman){
+                obj.personagens.push(og);
+            } 
+        }
+
+        let headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            mode: 'no-cors'
+        };
+        fetch(url, {
+            headers: headers,
+            method: "POST",
+            body: JSON.stringify(obj)
+            })
+            .then(res => res.text())
+            .then(res => alert("Objeto salvo"))
+            .catch(err => console.log(err.message))
+    }
+
+    function recuperarOG() {
+        fetch(url)
+            .then(res => res.json())
+            .then(json => atualizarOG(json))
+            .catch(err => alert(err.message));
+        console.log("Chamada realizada");
+    }
+
+    function atualizarOG(obj) {
+        listaOG = [];
+        for (let og of obj.personagens) {
+            let pacman = new Pacman(this.x,this.y,this.r,this.mo,this.cor);
+            listaOG.push(pacman);
+        }
+        draw();
+    }
+
+    </script>
+
+    <style>
+        canvas {
+            border: 1px solid black
+        }
+    </style>
+
+</head>
+<body onload="init()">
+    <button onclick="enviarFetch()">Salvar - Enviar</button>
+    <button onclick="recuperarOG()">Carregar - Receber</button>
+    <input id="colorSelctor" type="color" onchange="onChangeColor()">
+    <button onclick="onChangeColor()">Trocar de cor</button>
+    <button onclick="addPacman()">Novo Pacman</button>
+    <br>
+
+    <canvas id="canvas"  width="500" height="500" ></canvas>
+</body>
+</html>
