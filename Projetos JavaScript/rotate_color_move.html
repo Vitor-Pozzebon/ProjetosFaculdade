@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Rotate</title>
+
+    <script>
+
+        let line;
+        function init() {
+            let ctx = canvas.getContext("2d");
+            line = {x:Math.round(canvas.width / 2),
+                        y:Math.round(canvas.height / 2), 
+                        w:100, h:0};
+            ctx.lineWidth = 3;
+            requestAnimationFrame(draw);
+        }
+
+        function draw() {
+            let ctx = canvas.getContext("2d");
+            ctx.clearRect(0,0, canvas.width, canvas.height);
+            ctx.save();
+            drawLine(ctx);
+            ctx.restore();
+            requestAnimationFrame(draw)
+        }
+
+        let angulo = 0;
+        let stepSize = 10;
+        let stepX = 4;
+        let stepY = 4;
+
+        function drawLine(ctx) {
+            newPosition();
+            //ctx.strokeStyle = newColor();
+            ctx.translate(line.x, line.y);
+            ctx.rotate(newAngulo());
+            ctx.beginPath();
+            ctx.moveTo(Math.round(-line.w/2), Math.round(-line.h/2));
+            ctx.lineTo(Math.round(line.w/2), Math.round(line.h/2));
+            ctx.stroke();
+        }
+
+        function newAngulo(){
+            angulo += 0.1;
+            if (angulo > 2*Math.PI) {
+                angulo = 0;
+            }
+            return angulo;
+        }
+
+        function newPosition(){
+            line.x += stepX;
+            line.y += stepY;
+
+            if((line.x + line.w/2) > canvas.width){
+                stepX = -stepSize + Math.round(Math.random()*3);
+            }
+
+            if((line.x - line.w/2) < 0){
+                stepX = stepSize - Math.round(Math.random()*3);
+            }
+
+            if((line.y + line.h/2) > canvas.height){
+                stepY = -stepSize + Math.round(Math.random()*3);
+            }
+
+            if((line.y - line.h/2) < 0){
+                stepY = stepSize - Math.round(Math.random()*3);
+            }
+        }
+
+        function newColor() {
+            const r = Math.round(Math.random()*255);
+            const g = Math.round(Math.random()*255);
+            const b = Math.round(Math.random()*255);
+            return `rgb(${r},${g},${b})`;
+        }
+
+    </script>
+
+    <style>
+
+        canvas{
+            border: 1px solid black
+        }        
+
+    </style>
+</head>
+<body onload="init()">
+    <canvas id="canvas" width="500" height="500"></canvas>
+
+
+</body>
+</html>

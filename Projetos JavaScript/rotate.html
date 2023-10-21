@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Rotate</title>
+
+    <script>
+
+        function init(){
+            setInterval(draw, 100);
+        }
+
+        let angulo = 0;
+
+        function draw() {
+            angulo += 0.1;
+
+            let ctx = canvas.getContext("2d");
+
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            let line = {x:250, y:250, w:100, h:0};
+            ctx.save();
+            ctx.translate(line.x, line.y);
+            ctx.rotate(angulo);
+            ctx.beginPath()
+            ctx.moveTo(Math.round(-line.w/2), Math.round(-line.h/2));
+            ctx.lineTo(Math.round(line.w/2), Math.round(line.h/2));
+            ctx.stroke();
+            ctx.restore();
+
+        }
+
+    </script>
+
+    <style>
+
+        canvas{
+            border: 1px solid black
+        }        
+
+    </style>
+</head>
+<body onload="init()">
+    <canvas id="canvas" width="500" height="500"></canvas>
+
+
+</body>
+</html>
