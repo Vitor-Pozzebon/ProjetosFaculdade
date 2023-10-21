@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+
+        function init(){
+            let ctx = canvas.getContext("2d");
+            
+            //arco do guarda-chuva
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(250, 150, 50, 0, Math.PI, true); // Outer circle
+            ctx.stroke();
+
+            //parte de baixo do arco e haste
+            ctx.moveTo(200,150);
+            ctx.lineTo(300,150);
+            ctx.moveTo(250,150);
+            ctx.lineTo(250,250);
+            ctx.stroke();
+
+            //ponta do cabo do guarda chuva
+            ctx.moveTo(270,250);
+            ctx.arc(260,250,10, 0, Math.PI, false);
+            ctx.stroke();
+        }
+
+    </script>
+
+    <style>
+
+        canvas{
+            border: 1px solid black
+        }        
+
+    </style>
+</head>
+<body onload="init()">
+    <canvas id="canvas" width="500" height="400"></canvas>
+
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Luminária</title>
+
+    <script>
+
+        function init(){
+            let ctx = canvas.getContext("2d");
+            
+            ctx.lineWidth = 3;
+
+            //função para desenhar a mesa
+            drawTable(ctx);
+            
+            //função para desenhar o corpo da luminária
+            drawLighting(ctx);
+
+            //função para desenhar a lâmpada
+            drawLamp(ctx);           
+        }
+
+        function drawTable(ctx){
+            //desenho da mesa
+            ctx.beginPath();
+            ctx.moveTo(20,500);
+            ctx.lineTo(20,380);
+            ctx.lineTo(480,380);
+            ctx.lineTo(480,500);
+            ctx.fillStyle = '#7F3300';
+            ctx.fill();
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(40,500);
+            ctx.lineTo(40,400);
+            ctx.lineTo(460,400);
+            ctx.lineTo(460,500);
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fill();
+            ctx.stroke();
+        }
+
+        function drawLighting(ctx){
+            //desenho da luminária
+
+            //base
+            ctx.beginPath();
+            ctx.moveTo(210,380);
+            ctx.lineTo(210,360);
+            ctx.lineTo(250,360);
+            ctx.lineTo(250,380);
+            ctx.fillStyle = '#606060';
+            ctx.fill();
+            ctx.stroke();
+            ctx.beginPath();
+
+            //haste vertical
+            ctx.moveTo(225,360);
+            ctx.lineTo(225,270);
+            ctx.lineTo(235,270);
+            ctx.lineTo(235,360);
+            ctx.fillStyle = '#606060';
+            ctx.fill();
+            ctx.stroke();
+            ctx.beginPath();
+
+            //haste horizontal
+            ctx.moveTo(235,270);
+            ctx.lineTo(300,270);
+            ctx.lineTo(300,280);
+            ctx.lineTo(235,280);
+            ctx.fillStyle = '#606060';
+            ctx.fill();
+            ctx.stroke();
+            ctx.beginPath();
+
+            //bocal da lâmpada
+            ctx.moveTo(300,280);
+            ctx.lineTo(280,310);
+            ctx.moveTo(300,280);
+            ctx.lineTo(320,310);
+            ctx.lineTo(280,310);
+            ctx.fillStyle = '#606060';
+            ctx.fill();
+            ctx.stroke();
+            ctx.beginPath();
+        }
+
+        function drawLamp(ctx){
+            //lâmpada
+            ctx.arc(300, 310, 10, 0, Math.PI, false);
+            ctx.fillStyle = 'yellow';
+            ctx.fill();
+            ctx.stroke();
+            ctx.beginPath();
+
+            //luz da lâmpada
+            ctx.moveTo(300,325);
+            ctx.lineTo(300,350);
+            ctx.strokeStyle = 'yellow';
+            ctx.moveTo(310,320);
+            ctx.lineTo(330,345);
+            ctx.moveTo(290,320);
+            ctx.lineTo(270,345);
+            ctx.stroke();
+        }
+
+    </script>
+
+    <style>
+        canvas{
+            border: 1px solid black
+        }        
+
+    </style>
+</head>
+<body onload="init()">
+    <canvas id="canvas" width="500" height="500"></canvas>
+
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>PacMan</title>
+
+    <script>
+
+        const pacMan = {
+            x: 30,
+            y: 30,
+            radius: 30,
+            mouthOpen: false,
+            angle: 0,
+            direction: 0, // 0 para direita, 1 para baixo, 2 para esquerda, 3 para cima
+        };
+
+        function init(){
+            requestAnimationFrame(drawPacMan);
+        }
+
+        function drawPacMan() {
+            newPosition();
+            let ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.save();
+
+            ctx.translate(pacMan.x, pacMan.y);
+
+            // Define a rotação com base na direção
+            switch (pacMan.direction) {
+                case 0: // Direita
+                    ctx.rotate(0);
+                    break;
+                case 1: // Baixo
+                    ctx.rotate(0.5 * Math.PI);
+                    break;
+                case 2: // Esquerda
+                    ctx.rotate(Math.PI);
+                    break;
+                case 3: // Cima
+                    ctx.rotate(1.5 * Math.PI);
+                    break;
+            }
+
+            //Desenho do PacMan
+            ctx.beginPath();
+            let startAngle = pacMan.angle * Math.PI;
+            let endAngle = (2 - pacMan.angle) * Math.PI;
+            ctx.arc(0, 0, pacMan.radius, startAngle, endAngle);
+            ctx.lineTo(0, 0);
+            ctx.closePath();
+            ctx.fillStyle = 'yellow';
+            ctx.fill();
+
+            //desenho do olho
+            ctx.beginPath();
+            ctx.arc(0,-10,5,0,2*Math.PI);
+            ctx.fillStyle = 'black';
+            ctx.fill();
+            
+
+            pacMan.angle += 0.02;
+            if (pacMan.angle >= 0.45) {
+                pacMan.angle = 0;
+                pacMan.mouthOpen = !pacMan.mouthOpen;
+            }
+
+            ctx.restore(); 
+
+            requestAnimationFrame(drawPacMan);
+        }
+
+        let stepSize = 10;
+
+        function newPosition(){
+            switch (pacMan.direction) {
+                case 0:
+                    if ((pacMan.x + pacMan.radius) < canvas.width) {
+                        pacMan.x += stepSize;
+                    } else {
+                        pacMan.direction = 1; // Muda para baixo quando atingir a parede direita.
+                    }
+                    break;
+                case 1:
+                    if ((pacMan.y + pacMan.radius) < canvas.height) {
+                        pacMan.y += stepSize;
+                    } else {
+                        pacMan.direction = 2; // Muda para a esquerda quando atingir a parede inferior.
+                    }
+                    break;
+                case 2:
+                    if ((pacMan.x - pacMan.radius) > 0) {
+                        pacMan.x -= stepSize;
+                    } else {
+                        pacMan.direction = 3; // Muda para cima quando atingir a parede esquerda.
+                    }
+                    break;
+                case 3:
+                    if ((pacMan.y - pacMan.radius) > 0) {
+                        pacMan.y -= stepSize;
+                    } else {
+                        pacMan.direction = 0; // Muda para a direita quando atingir a parede superior.
+                    }
+                    break;
+            }
+        }
+
+    </script>
+
+    <style>
+
+        canvas{
+            border: 1px solid black
+        }        
+
+    </style>
+</head>
+<body onload="init()">
+    <canvas id="canvas" width="500" height="500"></canvas>
+</body>
+</html>
